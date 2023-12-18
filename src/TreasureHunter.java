@@ -46,16 +46,16 @@ public class TreasureHunter {
         String name = SCANNER.nextLine().toLowerCase();
 
         // set hunter instance variable
-        hunter = new Hunter(name, 10);
 
         System.out.print("Hard mode? (y/n): ");
         String hard = SCANNER.nextLine().toLowerCase();
-        if (hard.equals("y")) {
+        if (hard.equals("y")||hard.equals("n")) {
             hardMode = true;
+            hunter = new Hunter(name, 10);
+        } else if (hard.equals("test")) {
+            hunter = new Hunter(name);
         }
-        if (hard.equals("test")) {
-            hunter = new Hunter(name, 100);
-        }
+
     }
 
     /**

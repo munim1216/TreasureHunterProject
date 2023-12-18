@@ -7,7 +7,7 @@
 public class Hunter {
     //instance variables
     private String hunterName;
-    private String[] kit;
+    private String[] kit = new String[5];
     private int gold;
 
     /**
@@ -18,8 +18,17 @@ public class Hunter {
      */
     public Hunter(String hunterName, int startingGold) {
         this.hunterName = hunterName;
-        kit = new String[5]; // only 5 possible items can be stored in kit
+        // only 5 possible items can be stored in kit
         gold = startingGold;
+    }
+    public Hunter(String hunterName){
+        this.hunterName = hunterName;
+        kit[0] = "water";
+        kit[1] = "rope";
+        kit[2] = "machete";
+        kit[3] = "horse";
+        kit[4] = "boat";
+        gold = 100;
     }
 
     //Accessors
@@ -133,14 +142,14 @@ public class Hunter {
      */
     public String getInventory() {
         String printableKit = "";
-        String space = " ";
-
         for (String item : kit) {
             if (item != null) {
-                printableKit += Colors.PURPLE + item + Colors.RESET + space;
+                printableKit += Colors.PURPLE + item + Colors.RESET + ", " ;
             }
         }
-
+        if (!printableKit.equals("")){
+            printableKit = printableKit.substring(0, printableKit.length()-2);
+        }
         return printableKit;
     }
 
@@ -148,10 +157,11 @@ public class Hunter {
      * @return A string representation of the hunter.
      */
     public String toString() {
-        String str = "You have " + Colors.YELLOW + gold + Colors.RESET + " gold.";
+        String str = "You have " + Colors.YELLOW + gold + Colors.RESET + " gold";
         if (!kitIsEmpty()) {
             str += " and " + getInventory();
         }
+        str += ".";
         return str;
     }
 
@@ -169,7 +179,6 @@ public class Hunter {
                 return i;
             }
         }
-
         return -1;
     }
 
@@ -198,7 +207,6 @@ public class Hunter {
                 return i;
             }
         }
-
         return -1;
     }
 }

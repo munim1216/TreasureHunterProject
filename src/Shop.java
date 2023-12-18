@@ -163,7 +163,6 @@ public class Shop {
      * @return The sell price of the item.
      */
     public int getBuyBackCost(String item) {
-        int cost = (int) (getCostOfItem(item) * markdown);
-        return cost;
+        return (int) (getCostOfItem(item) * markdown);
     }
 }
