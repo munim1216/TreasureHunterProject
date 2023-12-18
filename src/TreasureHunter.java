@@ -41,7 +41,7 @@ public class TreasureHunter {
      */
     private void welcomePlayer() {
         System.out.println("Welcome to " + Colors.YELLOW + "TREASURE HUNTER!" + Colors.RESET);
-        System.out.println("Going hunting for the big treasure, eh?");
+        System.out.println("Going hunting for the " + Colors.YELLOW + "big treasure, eh?"+ Colors.RESET);
         System.out.print("What's your name, Hunter? ");
         String name = SCANNER.nextLine().toLowerCase();
 
