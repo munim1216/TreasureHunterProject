@@ -16,7 +16,6 @@ public class TreasureHunter {
     private Town currentTown;
     private Hunter hunter;
     private boolean hardMode;
-    private boolean testmode;
 
     /**
      * Constructs the Treasure Hunter game.
@@ -55,7 +54,6 @@ public class TreasureHunter {
             hardMode = true;
         }
         if (hard.equals("test")) {
-            testmode = true;
             hunter = new Hunter(name, 100);
         }
     }
