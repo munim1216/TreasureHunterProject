@@ -7,8 +7,9 @@
 public class Hunter {
     //instance variables
     private String hunterName;
-    private String[] kit = new String[5];
+    private final String[] kit = new String[5];
     private int gold;
+    private boolean lose;
 
     /**
      * The base constructor of a Hunter assigns the name to the hunter and an empty kit.
@@ -20,6 +21,7 @@ public class Hunter {
         this.hunterName = hunterName;
         // only 5 possible items can be stored in kit
         gold = startingGold;
+        lose = true;
     }
     public Hunter(String hunterName){
         this.hunterName = hunterName;
@@ -29,6 +31,7 @@ public class Hunter {
         kit[3] = "horse";
         kit[4] = "boat";
         gold = 100;
+        lose = true;
     }
 
     //Accessors
@@ -49,6 +52,12 @@ public class Hunter {
     }
     public boolean gold(){
         return gold > 0;
+    }
+    public void lose(){
+        lose = false;
+    }
+    public boolean loseCond(){
+        return lose;
     }
 
     /**
@@ -158,7 +167,10 @@ public class Hunter {
      */
     public String toString() {
         String str = "You have " + Colors.YELLOW + gold + Colors.RESET + " gold";
-        if (!kitIsEmpty()) {
+        if (!lose) {
+            str = "You have nothing";
+        }
+        if (!kitIsEmpty()&&lose) {
             str += " and " + getInventory();
         }
         str += ".";

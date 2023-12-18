@@ -102,15 +102,17 @@ public class TreasureHunter {
             System.out.println(currentTown.getLatestNews());
             System.out.println("***");
             System.out.println(hunter);
-            System.out.println(currentTown);
-            if (hunter.gold()) {
-                System.out.println(Colors.YELLOW + "(B)uy something at the shop.");
+            if (hunter.loseCond()) {
+                System.out.println(currentTown);
+                if (hunter.gold()) {
+                    System.out.println(Colors.YELLOW + "(B)uy something at the shop.");
+                }
+                if (!hunter.kitIsEmpty()) {
+                    System.out.println(Colors.PURPLE + "(S)ell something at the shop.");
+                }
+                System.out.println(Colors.CYAN + "(M)ove on to a different town.");
+                System.out.println(Colors.RED + "(L)ook for trouble!");
             }
-            if (!hunter.kitIsEmpty()) {
-                System.out.println(Colors.PURPLE + "(S)ell something at the shop.");
-            }
-            System.out.println(Colors.CYAN + "(M)ove on to a different town.");
-            System.out.println(Colors.RED + "(L)ook for trouble!");
             System.out.println(Colors.RESET + "Give up the hunt and e(X)it.");
             System.out.println();
             System.out.print("What's your next move? ");
@@ -124,18 +126,18 @@ public class TreasureHunter {
      * @param choice The action to process.
      */
     private void processChoice(String choice) {
-        if (choice.equals("b") || choice.equals("s")) {
+        if ((choice.equals("b") || (choice.equals("s")&&!hunter.kitIsEmpty()))&&hunter.loseCond()) {
             currentTown.enterShop(choice);
         } else if (choice.equals("m")) {
-            if (currentTown.leaveTown()) {
+            if (currentTown.leaveTown()&&hunter.loseCond()) {
                 // This town is going away so print its news ahead of time.
                 System.out.println(currentTown.getLatestNews());
                 enterTown();
             }
-        } else if (choice.equals("l")) {
+        } else if (choice.equals("l")&&hunter.loseCond()) {
             currentTown.lookForTrouble();
         } else if (choice.equals("x")) {
-            System.out.println("Fare thee well, " + hunter.getHunterName() + "!");
+            System.out.println("You forfeit, " + hunter.getHunterName() + ". Goodbye.");
         } else {
             System.out.println("Yikes! That's an invalid option! Try again.");
         }
