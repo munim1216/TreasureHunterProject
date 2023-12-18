@@ -38,6 +38,9 @@ public class Hunter {
             gold = 0;
         }
     }
+    public boolean gold(){
+        return gold > 0;
+    }
 
     /**
      * Buys an item from a shop.
@@ -145,7 +148,7 @@ public class Hunter {
      * @return A string representation of the hunter.
      */
     public String toString() {
-        String str = hunterName + " has " + Colors.YELLOW + gold + Colors.RESET + " gold";
+        String str = "you have " + Colors.YELLOW + gold + Colors.RESET + " gold";
         if (!kitIsEmpty()) {
             str += " and " + getInventory();
         }
@@ -175,13 +178,12 @@ public class Hunter {
      *
      * @return true if kit is completely empty.
      */
-    private boolean kitIsEmpty() {
+    public boolean kitIsEmpty() {
         for (String string : kit) {
             if (string != null) {
                 return false;
             }
         }
-
         return true;
     }
 

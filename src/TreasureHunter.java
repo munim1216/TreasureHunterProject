@@ -103,8 +103,12 @@ public class TreasureHunter {
             System.out.println("***");
             System.out.println(hunter);
             System.out.println(currentTown);
-            System.out.println(Colors.YELLOW + "(B)uy something at the shop.");
-            System.out.println(Colors.PURPLE + "(S)ell something at the shop.");
+            if (hunter.gold()) {
+                System.out.println(Colors.YELLOW + "(B)uy something at the shop.");
+            }
+            if (!hunter.kitIsEmpty()) {
+                System.out.println(Colors.PURPLE + "(S)ell something at the shop.");
+            }
             System.out.println(Colors.CYAN + "(M)ove on to a different town.");
             System.out.println(Colors.RED + "(L)ook for trouble!");
             System.out.println(Colors.RESET + "Give up the hunt and e(X)it.");
