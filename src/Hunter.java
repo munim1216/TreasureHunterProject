@@ -7,7 +7,7 @@
 public class Hunter {
     //instance variables
     private String hunterName;
-    private final String[] kit = new String[5];
+    private final String[] kit = new String[6];
     private int gold;
     private boolean lose;
 
@@ -29,7 +29,8 @@ public class Hunter {
         kit[1] = "rope";
         kit[2] = "machete";
         kit[3] = "horse";
-        kit[4] = "boat";
+        kit[5] = "boat";
+        kit[4] = "boots";
         gold = 100;
         lose = true;
     }
