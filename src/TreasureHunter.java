@@ -40,7 +40,7 @@ public class TreasureHunter {
      * Creates a hunter object at the beginning of the game and populates the class member variable with it.
      */
     private void welcomePlayer() {
-        System.out.println("Welcome to TREASURE HUNTER!");
+        System.out.println("Welcome to " + Colors.YELLOW + "TREASURE HUNTER!" + Colors.RESET);
         System.out.println("Going hunting for the big treasure, eh?");
         System.out.print("What's your name, Hunter? ");
         String name = SCANNER.nextLine().toLowerCase();

@@ -50,7 +50,7 @@ public class Shop {
             if (cost == 0) {
                 System.out.println("We ain't got none of those.");
             } else {
-                System.out.print("It'll cost you " + cost + " gold. Buy it (y/n)? ");
+                System.out.print("It'll cost you " + Colors.YELLOW + cost + Colors.RESET + " gold. Buy it (y/n)? ");
                 String option = SCANNER.nextLine().toLowerCase();
 
                 if (option.equals("y")) {
@@ -63,7 +63,7 @@ public class Shop {
             String item = SCANNER.nextLine().toLowerCase();
             int cost = checkMarketPrice(item, false);
             if (cost == 0) {
-                System.out.println("We don't want none of those.");
+                System.out.println("We don't want " + Colors.PURPLE + "none of those." + Colors.RESET);
             } else {
                 System.out.print("It'll get you " + Colors.YELLOW + cost + Colors.RESET + " gold. Sell it (y/n)? ");
                 String option = SCANNER.nextLine().toLowerCase();
@@ -101,7 +101,7 @@ public class Shop {
         if (customer.buyItem(item, costOfItem)) {
             System.out.println("Ye' got yerself a " + item + ". Come again soon.");
         } else {
-            System.out.println("Hmm, either you don't have enough gold or you've already got one of those!");
+            System.out.println("Hmm, either you don't have enough " + Colors.YELLOW + "gold" + Colors.RESET +"or you've already got one of those!");
         }
     }
 
@@ -115,7 +115,7 @@ public class Shop {
         if (customer.sellItem(item, buyBackPrice)) {
             System.out.println("Pleasure doin' business with you.");
         } else {
-            System.out.println("Stop stringin' me along!");
+            System.out.println(Colors.RED + "Stop stringin' me along!" + Colors.RESET);
         }
     }
 

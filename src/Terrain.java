@@ -21,11 +21,11 @@ public class Terrain {
 
     // accessors
     public String getTerrainName() {
-        return terrainName;
+        return Colors.CYAN + terrainName + Colors.RESET;
     }
 
     public String getNeededItem() {
-        return neededItem;
+        return Colors.PURPLE + neededItem + Colors.RESET;
     }
 
     /**
@@ -46,6 +46,6 @@ public class Terrain {
      * @return A string representation of the terrain and item to cross it.
      */
     public String toString() {
-        return terrainName + " needs a(n) " + neededItem + " to cross.";
+        return terrainName + " needs a(n) "+ neededItem + " to cross.";
     }
 }
