@@ -54,8 +54,9 @@ public class TreasureHunter {
         if (hard.equals("y")) {
             hardMode = true;
         }
-        if(hard.equals("test")){
+        if (hard.equals("test")) {
             testmode = true;
+            hunter = new Hunter(name, 100);
         }
     }
 
