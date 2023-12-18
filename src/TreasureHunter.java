@@ -16,6 +16,7 @@ public class TreasureHunter {
     private Town currentTown;
     private Hunter hunter;
     private boolean hardMode;
+    private boolean testmode;
 
     /**
      * Constructs the Treasure Hunter game.
@@ -52,6 +53,9 @@ public class TreasureHunter {
         String hard = SCANNER.nextLine().toLowerCase();
         if (hard.equals("y")) {
             hardMode = true;
+        }
+        if(hard.equals("test")){
+            testmode = true;
         }
     }
 
@@ -100,11 +104,11 @@ public class TreasureHunter {
             System.out.println("***");
             System.out.println(hunter);
             System.out.println(currentTown);
-            System.out.println("(B)uy something at the shop.");
-            System.out.println("(S)ell something at the shop.");
-            System.out.println("(M)ove on to a different town.");
-            System.out.println("(L)ook for trouble!");
-            System.out.println("Give up the hunt and e(X)it.");
+            System.out.println(Colors.YELLOW + "(B)uy something at the shop.");
+            System.out.println(Colors.PURPLE + "(S)ell something at the shop.");
+            System.out.println(Colors.CYAN + "(M)ove on to a different town.");
+            System.out.println(Colors.RED + "(L)ook for trouble!");
+            System.out.println(Colors.RESET + "Give up the hunt and e(X)it.");
             System.out.println();
             System.out.print("What's your next move? ");
             choice = SCANNER.nextLine().toLowerCase();
