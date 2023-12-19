@@ -20,7 +20,7 @@ public class Town {
         // higher toughness = more likely to be a tough town
         toughTown = (Math.random() < toughness);
         if (Math.random()<0.25){
-            treasure = Colors.YELLOW + "crown" + Colors.RESET;
+            treasure = Colors.RED + "crown" + Colors.RESET;
         } else if (Math.random()<0.5){
             treasure = Colors.YELLOW + "trophy" + Colors.RESET;
         } else if (Math.random()<0.75){
@@ -53,10 +53,8 @@ public class Town {
                 hunter.removeItemFromKit(item);
                 printMessage += "\nUnfortunately, your " + item + " broke.";
             }
-
             return true;
         }
-
         printMessage = "You can't leave town, " + hunter.getHunterName() + ". You don't have the " + terrain.getNeededItem() + ".";
         return false;
     }

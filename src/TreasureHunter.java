@@ -59,7 +59,7 @@ public class TreasureHunter {
             System.out.println(currentTown.getLatestNews());
             System.out.println("***");
             System.out.println(hunter);
-
+            //this one is important (prints your stuff)
             if (hunter.loseCond()) {
                 System.out.println(currentTown);
                 if (hunter.gold()) {

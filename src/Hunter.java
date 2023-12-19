@@ -103,21 +103,28 @@ public class Hunter {
         return false;
     }
     public String getInventory() {
-        String whatever = Colors.PURPLE + getInv(kit) + Colors.RESET;
-        whatever += getInv(treasures);
-        return whatever;
-    }
-    private String getInv(String[] a){
         String printableKit = "";
-        for (String item : a) {
+        for (String item : kit) {
             if (item != null) {
-                printableKit += item + ", " ;
+                printableKit += Colors.PURPLE + item + Colors.RESET + ", " ;
             }
         }
         if (!printableKit.isEmpty()){
             printableKit = printableKit.substring(0, printableKit.length()-2);
         }
         return printableKit;
+    }
+    private String getTreasures(){
+        String sum = "";
+        for (String item : treasures) {
+            if (item != null) {
+                sum += " the " + item + " &" ;
+            }
+        }
+        if (!sum.isEmpty()){
+            sum = sum.substring(0, sum.length()-2);
+        }
+        return sum;
     }
     public String toString() {
         String str = "You have " + Colors.YELLOW + gold + Colors.RESET + " gold";
@@ -126,6 +133,11 @@ public class Hunter {
         }
         if (!kitIsEmpty()&&lose) {
             str += " and " + getInventory();
+        }
+        if (!haveTreasure()&&lose){
+            str += ".\nNo treasures yet..";
+        } else {
+            str += ".\nYou've found" + getTreasures();
         }
         str += ".";
         return str;
@@ -146,6 +158,14 @@ public class Hunter {
             }
         }
         return true;
+    }
+    public boolean haveTreasure(){
+        for (String string : treasures) {
+            if (string != null) {
+                return true;
+            }
+        }
+        return false;
     }
     private int emptyPositionInKit(String[] a) {
         for (int i = 0; i < a.length; i++) {
