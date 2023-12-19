@@ -175,6 +175,17 @@ public class Hunter {
         if (!printableKit.equals("")){
             printableKit = printableKit.substring(0, printableKit.length()-2);
         }
+        if (!treasures()){
+            printableKit += ".\n You found the ";
+            for (String item : treasure) {
+                if (item != null) {
+                    printableKit += item + ", ";
+                }
+            }
+            printableKit = printableKit.substring(0, printableKit.length()-2);
+        } else {
+            printableKit += ".\nNo treasures yet..";
+        }
         return printableKit;
     }
 
@@ -202,7 +213,6 @@ public class Hunter {
     private int findItemInKit(String item) {
         for (int i = 0; i < kit.length; i++) {
             String tmpItem = kit[i];
-
             if (item.equals(tmpItem)) {
                 return i;
             }
@@ -217,6 +227,14 @@ public class Hunter {
      */
     public boolean kitIsEmpty() {
         for (String string : kit) {
+            if (string != null) {
+                return false;
+            }
+        }
+        return true;
+    }
+    private boolean treasures() {
+        for (String string : treasure) {
             if (string != null) {
                 return false;
             }

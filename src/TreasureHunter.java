@@ -103,6 +103,7 @@ public class TreasureHunter {
             System.out.println(currentTown.getLatestNews());
             System.out.println("***");
             System.out.println(hunter);
+
             if (hunter.loseCond()) {
                 System.out.println(currentTown);
                 if (hunter.gold()) {
@@ -111,7 +112,6 @@ public class TreasureHunter {
                 if (!hunter.kitIsEmpty()) {
                     System.out.println(Colors.PURPLE + "(S)ell something at the shop.");
                 }
-
                 System.out.println(Colors.CYAN + "(M)ove on to a different town.");
                 System.out.println(Colors.GREEN + "(H)unt for treasure!");
                 System.out.println(Colors.RED + "(L)ook for trouble!");
