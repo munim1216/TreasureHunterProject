@@ -2,7 +2,7 @@ public class Hunter {
     //instance variables
     private String hunterName;
     private final String[] kit = new String[6];
-    private final String[] treasure = new String[3];
+    private final String[] treasures = new String[3];
     private int gold;
     private boolean lose;
 
@@ -79,8 +79,8 @@ public class Hunter {
     }
     public boolean addTreasure(String item){
         if (!hasTreasure(item)) {
-            int idx = emptyPositionInKit(treasure);
-            treasure[idx] = item;
+            int idx = emptyPositionInKit(treasures);
+            treasures[idx] = item;
             return true;
         }
         return false;
@@ -95,7 +95,7 @@ public class Hunter {
         return false;
     }
     public boolean hasTreasure(String item){
-        for (String tmpItem : treasure) {
+        for (String tmpItem : treasures) {
             if (item.equals(tmpItem)) {
                 return true;
             }
@@ -104,7 +104,7 @@ public class Hunter {
     }
     public String getInventory() {
         String whatever = Colors.PURPLE + getInv(kit) + Colors.RESET;
-        whatever += getInv(treasure);
+        whatever += getInv(treasures);
         return whatever;
     }
     private String getInv(String[] a){
@@ -117,7 +117,6 @@ public class Hunter {
         if (!printableKit.isEmpty()){
             printableKit = printableKit.substring(0, printableKit.length()-2);
         }
-
         return printableKit;
     }
     public String toString() {
