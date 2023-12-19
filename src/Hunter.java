@@ -171,7 +171,7 @@ public class Hunter {
         if (!lose) {
             str = "You have nothing";
         }
-        if (!kitIsEmpty()&&lose) {
+        if (!kitIsEmpty() && lose) {
             str += " and " + getInventory();
         }
         str += ".";

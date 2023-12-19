@@ -25,7 +25,7 @@ public class Terrain {
     }
 
     public String getNeededItem() {
-        return Colors.PURPLE + neededItem + Colors.RESET;
+        return neededItem;
     }
 
     /**

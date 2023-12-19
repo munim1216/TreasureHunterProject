@@ -100,6 +100,7 @@ public class TreasureHunter {
         while (!choice.equals("x")) {
             System.out.println();
             System.out.println(currentTown.getLatestNews());
+            currentTown.purgePrintMessage();
             System.out.println("***");
             System.out.println(hunter);
             if (hunter.loseCond()) {
@@ -129,12 +130,12 @@ public class TreasureHunter {
         if ((choice.equals("b") || (choice.equals("s")&&!hunter.kitIsEmpty()))&&hunter.loseCond()) {
             currentTown.enterShop(choice);
         } else if (choice.equals("m")) {
-            if (currentTown.leaveTown()&&hunter.loseCond()) {
+            if (currentTown.leaveTown() && hunter.loseCond()) {
                 // This town is going away so print its news ahead of time.
                 System.out.println(currentTown.getLatestNews());
                 enterTown();
             }
-        } else if (choice.equals("l")&&hunter.loseCond()) {
+        } else if (choice.equals("l") && hunter.loseCond()) {
             currentTown.lookForTrouble();
         } else if (choice.equals("x")) {
             System.out.println("You forfeit, " + hunter.getHunterName() + ". Goodbye.");

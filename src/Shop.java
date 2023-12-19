@@ -103,7 +103,7 @@ public class Shop {
         if (customer.buyItem(item, costOfItem)) {
             System.out.println("Ye' got yerself a " + item + ". Come again soon.");
         } else {
-            System.out.println("Hmm, either you don't have enough " + Colors.YELLOW + "gold" + Colors.RESET +"or you've already got one of those!");
+            System.out.println("Hmm, either you don't have enough " + Colors.YELLOW + "gold" + Colors.RESET +" or you've already got one of those!");
         }
     }
 

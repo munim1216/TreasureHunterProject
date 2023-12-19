@@ -61,10 +61,10 @@ public class Town {
         boolean canLeaveTown = terrain.canCrossTerrain(hunter);
         if (canLeaveTown) {
             String item = terrain.getNeededItem();
-            printMessage = "You used your " + item + " to cross the " + terrain.getTerrainName() + ".";
+            printMessage = "You used your " + Colors.PURPLE + item + Colors.RESET + " to cross the " + terrain.getTerrainName() + ".";
             if (checkItemBreak()) {
                 hunter.removeItemFromKit(item);
-                printMessage += "\nUnfortunately, your " + item + " broke.";
+                printMessage += breakMessage(item);
             }
 
             return true;
@@ -117,7 +117,9 @@ public class Town {
             }
         }
     }
-
+    public void purgePrintMessage() {
+        printMessage = "";
+    }
     public String toString() {
         return "This nice little town is surrounded by "+ terrain.getTerrainName() + ".";
     }
@@ -152,5 +154,17 @@ public class Town {
     private boolean checkItemBreak() {
         double rand = Math.random();
         return (rand < 0.5);
+    }
+
+    private String breakMessage(String item) {
+        return switch (item) {
+            case "water" -> "\nSadly, you ran out of water.";
+            case "rope" -> "\nUnfortunately, your rope has broke.";
+            case "machete" -> "\nUnfortunately, your machete has shattered into a million pieces.";
+            case "horse" -> "\nSadly, your horse has decided to leave you.";
+            case "boots" -> "\nUnfortunately, your boots have worn out and are no longer fit for wearing";
+            case "boat" -> "\nSadly, your boat was stolen as you were sleeping";
+            default -> throw new UnsupportedOperationException("Not a possible item");
+        };
     }
 }
