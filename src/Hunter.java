@@ -148,14 +148,6 @@ public class Hunter {
         }
         return true;
     }
-    private boolean treasures() {
-        for (String string : treasure) {
-            if (string != null) {
-                return false;
-            }
-        }
-        return true;
-    }
     private int emptyPositionInKit(String[] a) {
         for (int i = 0; i < a.length; i++) {
             if (a[i] == null) {
