@@ -49,13 +49,14 @@ public class TreasureHunter {
 
         System.out.print("Hard mode? (y/n): ");
         String hard = SCANNER.nextLine().toLowerCase();
-        if (hard.equals("y")||hard.equals("n")) {
+        if (hard.equals("y")) {
             hardMode = true;
             hunter = new Hunter(name, 10);
         } else if (hard.equals("test")) {
             hunter = new Hunter(name);
+        } else {
+            hunter = new Hunter(name, 10);
         }
-
     }
 
     /**
