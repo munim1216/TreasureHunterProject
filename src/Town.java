@@ -10,6 +10,8 @@ public class Town {
     private Shop shop;
     private Terrain terrain;
     private String printMessage;
+    private String treasure;
+    private boolean searched;
     private boolean toughTown;
 
     /**
@@ -30,6 +32,16 @@ public class Town {
 
         // higher toughness = more likely to be a tough town
         toughTown = (Math.random() < toughness);
+        if (Math.random()<0.25){
+            treasure = Colors.YELLOW + "crown" + Colors.RESET;
+        } else if (Math.random()<0.5){
+            treasure = Colors.YELLOW + "trophy" + Colors.RESET;
+        } else if (Math.random()<0.75){
+            treasure = Colors.BLUE + "gem" + Colors.RESET;
+        } else {
+            treasure = "dust";
+        }
+        searched = false;
     }
 
     public String getLatestNews() {
@@ -70,7 +82,7 @@ public class Town {
             return true;
         }
 
-        printMessage = "You can't leave town, " + hunter.getHunterName() + ". You don't have a " + terrain.getNeededItem() + ".";
+        printMessage = "You can't leave town, " + hunter.getHunterName() + ". You don't have the" + terrain.getNeededItem() + ".";
         return false;
     }
 
@@ -120,6 +132,23 @@ public class Town {
 
     public String toString() {
         return "This nice little town is surrounded by "+ terrain.getTerrainName() + ".";
+    }
+
+    public void searchGold() {
+        if (searched) {
+            printMessage = "You find nothing else of note.";
+        } else {
+            printMessage = "Oh wow. You found the " + treasure + ".\n";
+            if (!hunter.hasTreasure(treasure) && !treasure.equals("dust")) {
+                printMessage += "Well, you're hanging onto that.";
+                hunter.addTreasure(treasure);
+            } else if (treasure.equals("dust")) {
+                printMessage += "...You don't want this.";
+            } else {
+                printMessage += "Wait, you already have this. Never mind.";
+            }
+        }
+        searched = true;
     }
 
     /**

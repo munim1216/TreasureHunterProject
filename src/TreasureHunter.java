@@ -111,7 +111,9 @@ public class TreasureHunter {
                 if (!hunter.kitIsEmpty()) {
                     System.out.println(Colors.PURPLE + "(S)ell something at the shop.");
                 }
+
                 System.out.println(Colors.CYAN + "(M)ove on to a different town.");
+                System.out.println(Colors.GREEN + "(H)unt for treasure!");
                 System.out.println(Colors.RED + "(L)ook for trouble!");
             }
             System.out.println(Colors.RESET + "Give up the hunt and e(X)it.");
@@ -137,6 +139,8 @@ public class TreasureHunter {
             }
         } else if (choice.equals("l")&&hunter.loseCond()) {
             currentTown.lookForTrouble();
+        }else if (choice.equals("h")&&hunter.loseCond()){
+            currentTown.searchGold();
         } else if (choice.equals("x")) {
             System.out.println("You forfeit, " + hunter.getHunterName() + ". Goodbye.");
         } else {
