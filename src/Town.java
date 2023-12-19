@@ -11,6 +11,7 @@ public class Town {
     private Terrain terrain;
     private String printMessage;
     private boolean toughTown;
+    private boolean hasDug;
 
     /**
      * The Town Constructor takes in a shop and the surrounding terrain, but leaves the hunter as null until one arrives.
@@ -21,6 +22,7 @@ public class Town {
     public Town(Shop shop, double toughness) {
         this.shop = shop;
         this.terrain = getNewTerrain();
+        hasDug = false;
 
         // the hunter gets set using the hunterArrives method, which
         // gets called from a client class
@@ -73,7 +75,22 @@ public class Town {
         printMessage = "You can't leave town, " + hunter.getHunterName() + ". You don't have a " + terrain.getNeededItem() + ".";
         return false;
     }
+    public String dig() {
+        if (!hunter.hasItemInKit("shovel")) {
+            return "You can't dig for gold without a shovel!";
+        }
+        if (hasDug) {
+            return "You already dug for gold in this town.";
+        }
+        if ((int)(Math.random() * 2) == 0) {
+            return "You dug but only found dirt.";
+        }
+        int goldDug = (int) (Math.random() * 20) + 1;
 
+        hunter.changeGold(goldDug);
+        hasDug = true;
+        return "You dug up " + goldDug + " gold!";
+    }
     /**
      * Handles calling the enter method on shop whenever the user wants to access the shop.
      *

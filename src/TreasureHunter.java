@@ -113,6 +113,7 @@ public class TreasureHunter {
                 }
                 System.out.println(Colors.CYAN + "(M)ove on to a different town.");
                 System.out.println(Colors.RED + "(L)ook for trouble!");
+                System.out.println(Colors.GREEN + "(D)ig for gold!");
             }
             System.out.println(Colors.RESET + "Give up the hunt and e(X)it.");
             System.out.println();
@@ -139,6 +140,8 @@ public class TreasureHunter {
             currentTown.lookForTrouble();
         } else if (choice.equals("x")) {
             System.out.println("You forfeit, " + hunter.getHunterName() + ". Goodbye.");
+        } else if (choice.equals("d")){
+            System.out.println(currentTown.dig());
         } else {
             System.out.println("Yikes! That's an invalid option! Try again.");
         }

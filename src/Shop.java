@@ -11,6 +11,7 @@ public class Shop {
     private static final int WATER_COST = 2;
     private static final int ROPE_COST = 4;
     private static final int MACHETE_COST = 6;
+    private static final int SHOVEL_COST = 8;
     private static final int HORSE_COST = 12;
     private static final int BOAT_COST = 20;
     private static final int BOOTS_COST = 15;
@@ -86,6 +87,7 @@ public class Shop {
         String str = "Water: "+ Colors.YELLOW + WATER_COST + Colors.RESET + " gold\n";
         str += "Rope: " + Colors.YELLOW + ROPE_COST + Colors.RESET + " gold\n";
         str += "Machete: " + Colors.YELLOW + MACHETE_COST + Colors.RESET + " gold\n";
+        str += "Shovel: " + Colors.YELLOW + SHOVEL_COST + Colors.RESET + " gold\n";
         str += "Horse: " + Colors.YELLOW + HORSE_COST + Colors.RESET + " gold\n";
         str += "Boots: " + Colors.YELLOW + BOOTS_COST + Colors.RESET + " gold\n";
         str += "Boat: " + Colors.YELLOW + BOAT_COST + Colors.RESET + " gold\n";
@@ -143,21 +145,16 @@ public class Shop {
      * @return The cost of the item or 0 if the item is not found.
      */
     public int getCostOfItem(String item) {
-        if (item.equals("water")) {
-            return WATER_COST;
-        } else if (item.equals("rope")) {
-            return ROPE_COST;
-        } else if (item.equals("machete")) {
-            return MACHETE_COST;
-        } else if (item.equals("horse")) {
-            return HORSE_COST;
-        } else if (item.equals("boat")) {
-            return BOAT_COST;
-        } else if (item.equals("boots")){
-            return BOOTS_COST;
-        } else {
-            return 0;
-        }
+        return switch (item) {
+            case "water" -> WATER_COST;
+            case "rope" -> ROPE_COST;
+            case "machete" -> MACHETE_COST;
+            case "shovel" -> SHOVEL_COST;
+            case "horse" -> HORSE_COST;
+            case "boat" -> BOAT_COST;
+            case "boots" -> BOOTS_COST;
+            default -> 0;
+        };
     }
 
     /**
