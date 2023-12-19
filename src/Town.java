@@ -20,7 +20,7 @@ public class Town {
         // higher toughness = more likely to be a tough town
         toughTown = (Math.random() < toughness);
         if (Math.random()<0.25){
-            treasure = Colors.RED + "crown" + Colors.RESET;
+            treasure = Colors.GREEN + "crown" + Colors.RESET;
         } else if (Math.random()<0.5){
             treasure = Colors.YELLOW + "trophy" + Colors.RESET;
         } else if (Math.random()<0.75){
