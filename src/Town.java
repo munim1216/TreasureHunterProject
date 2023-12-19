@@ -1,9 +1,3 @@
-/**
- * The Town Class is where it all happens.
- * The Town is designed to manage all the things a Hunter can do in town.
- * This code has been adapted from Ivan Turner's original program -- thank you Mr. Turner!
- */
-
 public class Town {
     // instance variables
     private Hunter hunter;
@@ -13,13 +7,6 @@ public class Town {
     private String treasure;
     private boolean searched;
     private boolean toughTown;
-
-    /**
-     * The Town Constructor takes in a shop and the surrounding terrain, but leaves the hunter as null until one arrives.
-     *
-     * @param shop The town's shoppe.
-     * @param toughness The surrounding terrain.
-     */
     public Town(Shop shop, double toughness) {
         this.shop = shop;
         this.terrain = getNewTerrain();
@@ -47,12 +34,6 @@ public class Town {
     public String getLatestNews() {
         return printMessage;
     }
-
-    /**
-     * Assigns an object to the Hunter in town.
-     *
-     * @param hunter The arriving Hunter.
-     */
     public void hunterArrives(Hunter hunter) {
         this.hunter = hunter;
         printMessage = "Welcome to town, " + hunter.getHunterName() + ".";
@@ -63,12 +44,6 @@ public class Town {
             printMessage += "\nWe're just a sleepy little town with mild mannered folk.";
         }
     }
-
-    /**
-     * Handles the action of the Hunter leaving the town.
-     *
-     * @return true if the Hunter was able to leave town.
-     */
     public boolean leaveTown() {
         boolean canLeaveTown = terrain.canCrossTerrain(hunter);
         if (canLeaveTown) {
@@ -85,21 +60,9 @@ public class Town {
         printMessage = "You can't leave town, " + hunter.getHunterName() + ". You don't have the " + terrain.getNeededItem() + ".";
         return false;
     }
-
-    /**
-     * Handles calling the enter method on shop whenever the user wants to access the shop.
-     *
-     * @param choice If the user wants to buy or sell items at the shop.
-     */
     public void enterShop(String choice) {
         shop.enter(hunter, choice);
     }
-
-    /**
-     * Gives the hunter a chance to fight for some gold.<p>
-     * The chances of finding a fight and winning the gold are based on the toughness of the town.<p>
-     * The tougher the town, the easier it is to find a fight, and the harder it is to win one.
-     */
     public void lookForTrouble() {
         double noTroubleChance;
         if (toughTown) {
@@ -150,12 +113,6 @@ public class Town {
         }
         searched = true;
     }
-
-    /**
-     * Determines the surrounding terrain for a town, and the item needed in order to cross that terrain.
-     *
-     * @return A Terrain object.
-     */
     private Terrain getNewTerrain() {
         double rnd = Math.random();
         if (rnd < .16) {
@@ -172,12 +129,6 @@ public class Town {
             return new Terrain("Jungle", "Machete");
         }
     }
-
-    /**
-     * Determines whether a used item has broken.
-     *
-     * @return true if the item broke.
-     */
     private boolean checkItemBreak() {
         double rand = Math.random();
         return (rand < 0.5);
