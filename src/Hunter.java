@@ -1,16 +1,18 @@
 public class Hunter {
     //instance variables
     private String hunterName;
-    private final String[] kit = new String[7];
+    private final String[] kit = new String[8];
     private final String[] treasures = new String[3];
     private int gold;
     private boolean lose;
+    private boolean samurai;
 
     public Hunter(String hunterName, int startingGold) {
         this.hunterName = hunterName;
         // only 6 possible items can be stored in kit
         gold = startingGold;
         lose = true;
+        samurai = false;
     }
     public Hunter(String hunterName){
         this.hunterName = hunterName;
@@ -23,6 +25,7 @@ public class Hunter {
         kit[6] = "shovel";
         gold = 100;
         lose = true;
+        samurai = false;
     }
 
     //Accessors
@@ -43,6 +46,15 @@ public class Hunter {
     }
     public boolean loseCond(){
         return lose;
+    }
+    public boolean samuraiMode(){
+        return samurai;
+    }
+    public void startSamurai(){
+        samurai = true;
+    }
+    public boolean samurai(){
+        return hasItemInKit("sword");
     }
     public boolean buyItem(String item, int costOfItem) {
         if (costOfItem == 0 || gold < costOfItem || hasItemInKit(item)) {

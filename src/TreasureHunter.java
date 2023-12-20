@@ -35,6 +35,9 @@ public class TreasureHunter {
             hunter = new Hunter(name, 10);
         } else if (hard.equals("test")) {
             hunter = new Hunter(name);
+        } else if (hard.equals("s")){
+            hunter = new Hunter(name, 10);
+            hunter.startSamurai();
         } else {
             hunter = new Hunter(name, 10);
         }
@@ -72,7 +75,7 @@ public class TreasureHunter {
                 System.out.println(Colors.CYAN + "(M)ove on to a different town.");
                 System.out.println(Colors.GREEN + "(H)unt for treasure!");
                 System.out.println(Colors.RED + "(L)ook for trouble!");
-                System.out.println(Colors.GREEN + "(D)ig for gold!");
+                System.out.println(Colors.YELLOW + "(D)ig for gold!");
             }
             System.out.println(Colors.RESET + "Give up the hunt and e(X)it.");
             System.out.println();
