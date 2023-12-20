@@ -1,22 +1,11 @@
-/**
- * Hunter Class<br /><br />
- * This class represents the treasure hunter character (the player) in the Treasure Hunt game.
- * This code has been adapted from Ivan Turner's original program -- thank you Mr. Turner!
- */
-
 public class Hunter {
     //instance variables
     private String hunterName;
     private final String[] kit = new String[6];
+    private final String[] treasures = new String[3];
     private int gold;
     private boolean lose;
 
-    /**
-     * The base constructor of a Hunter assigns the name to the hunter and an empty kit.
-     *
-     * @param hunterName The hunter's name.
-     * @param startingGold The gold the hunter starts with.
-     */
     public Hunter(String hunterName, int startingGold) {
         this.hunterName = hunterName;
         // only 5 possible items can be stored in kit
@@ -39,12 +28,6 @@ public class Hunter {
     public String getHunterName() {
         return hunterName;
     }
-
-    /**
-     * Updates the amount of gold the hunter has.
-     *
-     * @param modifier Amount to modify gold by.
-     */
     public void changeGold(int modifier) {
         gold += modifier;
         if (gold < 0) {
@@ -60,14 +43,6 @@ public class Hunter {
     public boolean loseCond(){
         return lose;
     }
-
-    /**
-     * Buys an item from a shop.
-     *
-     * @param item The item the hunter is buying.
-     * @param costOfItem The cost of the item.
-     * @return true if the item is successfully bought.
-     */
     public boolean buyItem(String item, int costOfItem) {
         if (costOfItem == 0 || gold < costOfItem || hasItemInKit(item)) {
             return false;
@@ -77,15 +52,6 @@ public class Hunter {
         addItem(item);
         return true;
     }
-
-    /**
-     * The Hunter is selling an item to a shop for gold.<p>
-     * This method checks to make sure that the seller has the item and that the seller is getting more than 0 gold.
-     *
-     * @param item The item being sold.
-     * @param buyBackPrice the amount of gold earned from selling the item
-     * @return true if the item was successfully sold.
-     */
     public boolean sellItem(String item, int buyBackPrice) {
         if (buyBackPrice <= 0 || !hasItemInKit(item)) {
             return false;
@@ -95,12 +61,6 @@ public class Hunter {
         removeItemFromKit(item);
         return true;
     }
-
-    /**
-     * Removes an item from the kit by setting the index of the item to null.
-     *
-     * @param item The item to be removed.
-     */
     public void removeItemFromKit(String item) {
         int itmIdx = findItemInKit(item);
 
@@ -109,30 +69,22 @@ public class Hunter {
             kit[itmIdx] = null;
         }
     }
-
-    /**
-     * Checks to make sure that the item is not already in the kit.
-     * If not, it assigns the item to an index in the kit with a null value ("empty" position).
-     *
-     * @param item The item to be added to the kit.
-     * @return true if the item is not in the kit and has been added.
-     */
     private boolean addItem(String item) {
         if (!hasItemInKit(item)) {
-            int idx = emptyPositionInKit();
+            int idx = emptyPositionInKit(kit);
             kit[idx] = item;
             return true;
         }
-
         return false;
     }
-
-    /**
-     * Checks if the kit Array has the specified item.
-     *
-     * @param item The search item
-     * @return true if the item is found.
-     */
+    public boolean addTreasure(String item){
+        if (!hasTreasure(item)) {
+            int idx = emptyPositionInKit(treasures);
+            treasures[idx] = item;
+            return true;
+        }
+        return false;
+    }
     public boolean hasItemInKit(String item) {
         for (String tmpItem : kit) {
             if (item.equals(tmpItem)) {
@@ -140,16 +92,16 @@ public class Hunter {
                 return true;
             }
         }
-
         return false;
     }
-
-     /**
-     * Returns a printable representation of the inventory, which
-     * is a list of the items in kit, with a space between each item.
-     *
-     * @return The printable String representation of the inventory.
-     */
+    public boolean hasTreasure(String item){
+        for (String tmpItem : treasures) {
+            if (item.equals(tmpItem)) {
+                return true;
+            }
+        }
+        return false;
+    }
     public String getInventory() {
         String printableKit = "";
         for (String item : kit) {
@@ -157,15 +109,26 @@ public class Hunter {
                 printableKit += Colors.PURPLE + item + Colors.RESET + ", " ;
             }
         }
-        if (!printableKit.equals("")){
+        if (!printableKit.isEmpty()){
             printableKit = printableKit.substring(0, printableKit.length()-2);
         }
         return printableKit;
     }
-
-    /**
-     * @return A string representation of the hunter.
-     */
+    public String getTreasures(){
+        String sum = "";
+        for (String item : treasures) {
+            if (item != null) {
+                sum += " the " + item + " &" ;
+            }
+        }
+        if (!sum.isEmpty()){
+            sum = sum.substring(0, sum.length()-2);
+        }
+        return sum;
+    }
+    public boolean treasures(){
+        return hasTreasure(Colors.GREEN + "crown" + Colors.RESET)&&hasTreasure(Colors.YELLOW + "trophy" + Colors.RESET)&&hasTreasure(Colors.BLUE + "gem" + Colors.RESET);
+    }
     public String toString() {
         String str = "You have " + Colors.YELLOW + gold + Colors.RESET + " gold";
         if (!lose) {
@@ -174,32 +137,23 @@ public class Hunter {
         if (!kitIsEmpty()&&lose) {
             str += " and " + getInventory();
         }
+        if (!haveTreasure()&&lose){
+            str += ".\nNo treasures yet..";
+        } else {
+            str += ".\nYou've found" + getTreasures();
+        }
         str += ".";
         return str;
     }
-
-    /**
-     * Searches kit Array for the index of the specified value.
-     *
-     * @param item String to look for.
-     * @return The index of the item, or -1 if not found.
-     */
     private int findItemInKit(String item) {
         for (int i = 0; i < kit.length; i++) {
             String tmpItem = kit[i];
-
             if (item.equals(tmpItem)) {
                 return i;
             }
         }
         return -1;
     }
-
-    /**
-     * Check if the kit is empty - meaning all elements are null.
-     *
-     * @return true if kit is completely empty.
-     */
     public boolean kitIsEmpty() {
         for (String string : kit) {
             if (string != null) {
@@ -208,18 +162,21 @@ public class Hunter {
         }
         return true;
     }
-
-    /**
-     * Finds the first index where there is a null value.
-     *
-     * @return index of empty index, or -1 if not found.
-     */
-    private int emptyPositionInKit() {
-        for (int i = 0; i < kit.length; i++) {
-            if (kit[i] == null) {
+    public boolean haveTreasure(){
+        for (String string : treasures) {
+            if (string != null) {
+                return true;
+            }
+        }
+        return false;
+    }
+    private int emptyPositionInKit(String[] a) {
+        for (int i = 0; i < a.length; i++) {
+            if (a[i] == null) {
                 return i;
             }
         }
         return -1;
     }
+
 }
