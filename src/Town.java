@@ -1,24 +1,14 @@
-/**
- * The Town Class is where it all happens.
- * The Town is designed to manage all the things a Hunter can do in town.
- * This code has been adapted from Ivan Turner's original program -- thank you Mr. Turner!
- */
-
 public class Town {
     // instance variables
     private Hunter hunter;
     private Shop shop;
     private Terrain terrain;
     private String printMessage;
+    private String treasure;
+    private boolean searched;
     private boolean toughTown;
     private boolean hasDug;
 
-    /**
-     * The Town Constructor takes in a shop and the surrounding terrain, but leaves the hunter as null until one arrives.
-     *
-     * @param shop The town's shoppe.
-     * @param toughness The surrounding terrain.
-     */
     public Town(Shop shop, double toughness) {
         this.shop = shop;
         this.terrain = getNewTerrain();
@@ -32,17 +22,21 @@ public class Town {
 
         // higher toughness = more likely to be a tough town
         toughTown = (Math.random() < toughness);
+        if (Math.random()<0.25){
+            treasure = Colors.GREEN + "crown" + Colors.RESET;
+        } else if (Math.random()<0.5){
+            treasure = Colors.YELLOW + "trophy" + Colors.RESET;
+        } else if (Math.random()<0.75){
+            treasure = Colors.BLUE + "gem" + Colors.RESET;
+        } else {
+            treasure = "dust";
+        }
+        searched = false;
     }
 
     public String getLatestNews() {
         return printMessage;
     }
-
-    /**
-     * Assigns an object to the Hunter in town.
-     *
-     * @param hunter The arriving Hunter.
-     */
     public void hunterArrives(Hunter hunter) {
         this.hunter = hunter;
         printMessage = "Welcome to town, " + hunter.getHunterName() + ".";
@@ -53,12 +47,6 @@ public class Town {
             printMessage += "\nWe're just a sleepy little town with mild mannered folk.";
         }
     }
-
-    /**
-     * Handles the action of the Hunter leaving the town.
-     *
-     * @return true if the Hunter was able to leave town.
-     */
     public boolean leaveTown() {
         boolean canLeaveTown = terrain.canCrossTerrain(hunter);
         if (canLeaveTown) {
@@ -68,13 +56,12 @@ public class Town {
                 hunter.removeItemFromKit(item);
                 printMessage += breakMessage(item);
             }
-
             return true;
         }
-
-        printMessage = "You can't leave town, " + hunter.getHunterName() + ". You don't have a " + terrain.getNeededItem() + ".";
+        printMessage = "You can't leave town, " + hunter.getHunterName() + ". You don't have the " + terrain.getNeededItem() + ".";
         return false;
     }
+
     public String dig() {
         if (!hunter.hasItemInKit("shovel")) {
             return "You can't dig for gold without a shovel!";
@@ -91,20 +78,10 @@ public class Town {
         hasDug = true;
         return "You dug up " + goldDug + " gold!";
     }
-    /**
-     * Handles calling the enter method on shop whenever the user wants to access the shop.
-     *
-     * @param choice If the user wants to buy or sell items at the shop.
-     */
+
     public void enterShop(String choice) {
         shop.enter(hunter, choice);
     }
-
-    /**
-     * Gives the hunter a chance to fight for some gold.<p>
-     * The chances of finding a fight and winning the gold are based on the toughness of the town.<p>
-     * The tougher the town, the easier it is to find a fight, and the harder it is to win one.
-     */
     public void lookForTrouble() {
         double noTroubleChance;
         if (toughTown) {
@@ -141,11 +118,22 @@ public class Town {
         return "This nice little town is surrounded by "+ terrain.getTerrainName() + ".";
     }
 
-    /**
-     * Determines the surrounding terrain for a town, and the item needed in order to cross that terrain.
-     *
-     * @return A Terrain object.
-     */
+    public void searchGold() {
+        if (searched) {
+            printMessage = "You find nothing else of note.";
+        } else {
+            printMessage = "Oh wow. You found the " + treasure + ".\n";
+            if (!hunter.hasTreasure(treasure) && !treasure.equals("dust")) {
+                printMessage += "Well, you're hanging onto that.";
+                hunter.addTreasure(treasure);
+            } else if (treasure.equals("dust")) {
+                printMessage += "...You don't want this.";
+            } else {
+                printMessage += "Wait, you already have this. Never mind.";
+            }
+        }
+        searched = true;
+    }
     private Terrain getNewTerrain() {
         double rnd = Math.random();
         if (rnd < .16) {
@@ -162,12 +150,6 @@ public class Town {
             return new Terrain("Jungle", "Machete");
         }
     }
-
-    /**
-     * Determines whether a used item has broken.
-     *
-     * @return true if the item broke.
-     */
     private boolean checkItemBreak() {
         double rand = Math.random();
         return (rand < 0.5);
