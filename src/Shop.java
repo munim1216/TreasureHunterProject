@@ -12,7 +12,7 @@ public class Shop {
     private static final Scanner SCANNER = new Scanner(System.in);
 
     // instance variables
-    private double markdown;
+    private final double markdown;
     private Hunter customer;
     public Shop(double markdown) {
         this.markdown = markdown;
@@ -40,7 +40,7 @@ public class Shop {
             }
         } else {
             System.out.println("What're you lookin' to sell? ");
-            System.out.print("You currently have the following items: " + customer.getInventory());
+            System.out.println("You currently have the following items: " + customer.getInventory());
             String item = SCANNER.nextLine().toLowerCase();
             int cost = checkMarketPrice(item, false);
             if (cost == 0) {
@@ -70,7 +70,7 @@ public class Shop {
         if (customer.buyItem(item, costOfItem)) {
             System.out.println("Ye' got yerself a " + item + ". Come again soon.");
         } else {
-            System.out.println("Hmm, either you don't have enough " + Colors.YELLOW + "gold" + Colors.RESET +"or you've already got one of those!");
+            System.out.println("Hmm, either you don't have enough " + Colors.YELLOW + "gold" + Colors.RESET + " or you've already got one of those!");
         }
     }
     public void sellItem(String item) {
