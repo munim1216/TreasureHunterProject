@@ -57,6 +57,7 @@ public class TreasureHunter {
         while (!choice.equals("x")&&!hunter.treasures()) {
             System.out.println();
             System.out.println(currentTown.getLatestNews());
+            currentTown.purgePrintMessage();
             System.out.println("***");
             System.out.println(hunter);
             //this one is important (prints your stuff)
@@ -71,6 +72,7 @@ public class TreasureHunter {
                 System.out.println(Colors.CYAN + "(M)ove on to a different town.");
                 System.out.println(Colors.GREEN + "(H)unt for treasure!");
                 System.out.println(Colors.RED + "(L)ook for trouble!");
+                System.out.println(Colors.GREEN + "(D)ig for gold!");
             }
             System.out.println(Colors.RESET + "Give up the hunt and e(X)it.");
             System.out.println();
@@ -93,17 +95,19 @@ public class TreasureHunter {
         if ((choice.equals("b") || (choice.equals("s")&&!hunter.kitIsEmpty()))&&hunter.loseCond()) {
             currentTown.enterShop(choice);
         } else if (choice.equals("m")) {
-            if (currentTown.leaveTown()&&hunter.loseCond()) {
+            if (currentTown.leaveTown() && hunter.loseCond()) {
                 // This town is going away so print its news ahead of time.
                 System.out.println(currentTown.getLatestNews());
                 enterTown();
             }
-        } else if (choice.equals("l")&&hunter.loseCond()) {
+        } else if (choice.equals("l") && hunter.loseCond()) {
             currentTown.lookForTrouble();
         }else if (choice.equals("h")&&hunter.loseCond()){
             currentTown.searchGold();
         } else if (choice.equals("x")) {
             System.out.println("You forfeit, " + hunter.getHunterName() + ". Goodbye.");
+        } else if (choice.equals("d")){
+            System.out.println(currentTown.dig());
         } else {
             System.out.println("Yikes! That's an invalid option! Try again.");
         }

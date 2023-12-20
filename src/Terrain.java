@@ -14,7 +14,7 @@ public class Terrain {
     }
 
     public String getNeededItem() {
-        return Colors.PURPLE + neededItem + Colors.RESET;
+        return neededItem;
     }
     public boolean canCrossTerrain(Hunter hunter) {
         if (hunter.hasItemInKit(neededItem)) {

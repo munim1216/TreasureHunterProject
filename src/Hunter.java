@@ -1,14 +1,14 @@
 public class Hunter {
     //instance variables
     private String hunterName;
-    private final String[] kit = new String[6];
+    private final String[] kit = new String[7];
     private final String[] treasures = new String[3];
     private int gold;
     private boolean lose;
 
     public Hunter(String hunterName, int startingGold) {
         this.hunterName = hunterName;
-        // only 5 possible items can be stored in kit
+        // only 6 possible items can be stored in kit
         gold = startingGold;
         lose = true;
     }
@@ -18,8 +18,9 @@ public class Hunter {
         kit[1] = "rope";
         kit[2] = "machete";
         kit[3] = "horse";
-        kit[5] = "boat";
         kit[4] = "boots";
+        kit[5] = "boat";
+        kit[6] = "shovel";
         gold = 100;
         lose = true;
     }
@@ -134,7 +135,7 @@ public class Hunter {
         if (!lose) {
             str = "You have nothing";
         }
-        if (!kitIsEmpty()&&lose) {
+        if (!kitIsEmpty() && lose) {
             str += " and " + getInventory();
         }
         if (!haveTreasure()&&lose){
