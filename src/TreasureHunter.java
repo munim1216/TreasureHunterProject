@@ -16,6 +16,7 @@ public class TreasureHunter {
     private Town currentTown;
     private Hunter hunter;
     private boolean hardMode;
+    private boolean easyMode;
 
     /**
      * Constructs the Treasure Hunter game.
@@ -25,6 +26,7 @@ public class TreasureHunter {
         currentTown = null;
         hunter = null;
         hardMode = false;
+        easyMode = false;
     }
 
     /**
@@ -47,29 +49,38 @@ public class TreasureHunter {
 
         // set hunter instance variable
 
-        System.out.print("Hard mode? (y/n): ");
-        String hard = SCANNER.nextLine().toLowerCase();
-        if (hard.equals("y")||hard.equals("n")) {
-            hardMode = true;
-            hunter = new Hunter(name, 10);
-        } else if (hard.equals("test")) {
-            hunter = new Hunter(name);
+        System.out.print("(E)asy, (N)ormal, or (H)ard mode?: ");
+        String difficulty = SCANNER.nextLine().toLowerCase();
+        switch (difficulty) {
+            case "e" -> {
+                hunter = new Hunter(name, 20);
+                easyMode = true;
+            }
+            case "h" -> {
+                hardMode = true;
+                hunter = new Hunter(name, 10);
+            }
+            case "test" -> hunter = new Hunter("test");
+            default -> hunter = new Hunter(name, 10);
         }
-
     }
 
     /**
      * Creates a new town and adds the Hunter to it.
      */
     private void enterTown() {
-        double markdown = 0.25;
+        double markdown = 0.5;
         double toughness = 0.4;
         if (hardMode) {
             // in hard mode, you get less money back when you sell items
-            markdown = 0.5;
+            markdown = 0.25;
 
             // and the town is "tougher"
             toughness = 0.75;
+        }
+        if (easyMode) {
+            markdown = 1;
+            toughness = 0.2;
         }
 
         // note that we don't need to access the Shop object
@@ -103,18 +114,22 @@ public class TreasureHunter {
             currentTown.purgePrintMessage();
             System.out.println("***");
             System.out.println(hunter);
+
             if (hunter.loseCond()) {
                 System.out.println(currentTown);
+
                 if (hunter.gold()) {
                     System.out.println(Colors.YELLOW + "(B)uy something at the shop.");
                 }
                 if (!hunter.kitIsEmpty()) {
                     System.out.println(Colors.PURPLE + "(S)ell something at the shop.");
                 }
+
                 System.out.println(Colors.CYAN + "(M)ove on to a different town.");
                 System.out.println(Colors.RED + "(L)ook for trouble!");
                 System.out.println(Colors.GREEN + "(D)ig for gold!");
             }
+
             System.out.println(Colors.RESET + "Give up the hunt and e(X)it.");
             System.out.println();
             System.out.print("What's your next move? ");
@@ -128,10 +143,10 @@ public class TreasureHunter {
      * @param choice The action to process.
      */
     private void processChoice(String choice) {
-        if ((choice.equals("b") || (choice.equals("s")&&!hunter.kitIsEmpty()))&&hunter.loseCond()) {
+        if ((choice.equals("b") || (choice.equals("s") && !hunter.kitIsEmpty())) && hunter.loseCond()) {
             currentTown.enterShop(choice);
         } else if (choice.equals("m")) {
-            if (currentTown.leaveTown() && hunter.loseCond()) {
+            if (currentTown.leaveTown(easyMode) && hunter.loseCond()) {
                 // This town is going away so print its news ahead of time.
                 System.out.println(currentTown.getLatestNews());
                 enterTown();

@@ -61,7 +61,7 @@ public class Shop {
             }
         } else {
             System.out.println("What're you lookin' to sell? ");
-            System.out.print("You currently have the following items: " + customer.getInventory());
+            System.out.println("You currently have the following items: " + customer.getInventory());
             String item = SCANNER.nextLine().toLowerCase();
             int cost = checkMarketPrice(item, false);
             if (cost == 0) {

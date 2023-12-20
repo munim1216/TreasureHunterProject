@@ -59,12 +59,12 @@ public class Town {
      *
      * @return true if the Hunter was able to leave town.
      */
-    public boolean leaveTown() {
+    public boolean leaveTown(boolean isEasyMode) {
         boolean canLeaveTown = terrain.canCrossTerrain(hunter);
         if (canLeaveTown) {
             String item = terrain.getNeededItem();
             printMessage = "You used your " + Colors.PURPLE + item + Colors.RESET + " to cross the " + terrain.getTerrainName() + ".";
-            if (checkItemBreak()) {
+            if (checkItemBreak() && !isEasyMode) {
                 hunter.removeItemFromKit(item);
                 printMessage += breakMessage(item);
             }
