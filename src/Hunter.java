@@ -114,7 +114,7 @@ public class Hunter {
         }
         return printableKit;
     }
-    private String getTreasures(){
+    public String getTreasures(){
         String sum = "";
         for (String item : treasures) {
             if (item != null) {
@@ -125,6 +125,9 @@ public class Hunter {
             sum = sum.substring(0, sum.length()-2);
         }
         return sum;
+    }
+    public boolean treasures(){
+        return hasTreasure(Colors.GREEN + "crown" + Colors.RESET)&&hasTreasure(Colors.YELLOW + "trophy" + Colors.RESET)&&hasTreasure(Colors.BLUE + "gem" + Colors.RESET);
     }
     public String toString() {
         String str = "You have " + Colors.YELLOW + gold + Colors.RESET + " gold";

@@ -54,7 +54,7 @@ public class TreasureHunter {
     private void showMenu() {
         String choice = "";
 
-        while (!choice.equals("x")) {
+        while (!choice.equals("x")&&!hunter.treasures()) {
             System.out.println();
             System.out.println(currentTown.getLatestNews());
             System.out.println("***");
@@ -77,6 +77,16 @@ public class TreasureHunter {
             System.out.print("What's your next move? ");
             choice = SCANNER.nextLine().toLowerCase();
             processChoice(choice);
+        }
+        if (hunter.treasures()){
+            System.out.println();
+            System.out.println(currentTown.getLatestNews());
+            System.out.println("***");
+            System.out.println("Wait, holy shit.");
+            System.out.println("You found" + hunter.getTreasures() + ".");
+            System.out.println(Colors.YELLOW + "You did it. You actually did it.");
+            System.out.println(Colors.GREEN + "You win. You're done. " + Colors.RED + "The hunt is over." + Colors.RESET);
+            System.out.println("Great job, " + hunter.getHunterName() + ".");
         }
     }
     private void processChoice(String choice) {
