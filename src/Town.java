@@ -49,9 +49,16 @@ public class Town {
     }
     public boolean leaveTown() {
         boolean canLeaveTown = terrain.canCrossTerrain(hunter);
-        if (canLeaveTown) {
-            String item = terrain.getNeededItem();
-            printMessage = "You used your " + Colors.PURPLE + item + Colors.RESET + " to cross the " + terrain.getTerrainName() + ".";
+        if (canLeaveTown||(hunter.samurai()&&terrain.getTerrainName().equals(Colors.CYAN + "Jungle" + Colors.RESET))) {
+            String item = "";
+            if (hunter.samurai()&&terrain.getTerrainName().equals(Colors.CYAN + "Jungle" + Colors.RESET)) {
+                item = "sword";
+                printMessage = "You used your " + Colors.RED + item + Colors.RESET + " to cross the " + terrain.getTerrainName() + ".";
+            } else {
+                item = terrain.getNeededItem();
+                printMessage = "You used your " + Colors.PURPLE + item + Colors.RESET + " to cross the " + terrain.getTerrainName() + ".";
+            }
+
             if (checkItemBreak()) {
                 hunter.removeItemFromKit(item);
                 printMessage += breakMessage(item);
@@ -97,7 +104,7 @@ public class Town {
             int goldDiff = (int) (Math.random() * 10) + 1;
             if (hunter.samurai()){
                 printMessage += Colors.RESET + "Fuck, wait! I didn't mean anything by it! Goddamnit, what do you want?";
-                printMessage += Colors.YELLOW + "\n...Gold? " + Colors.RESET + "Oh thank god. Take it all!!";
+                printMessage += Colors.YELLOW + "\n...Gold? " + Colors.RESET + "Oh thank god. "+ Colors.RED + "Take it all!" + Colors.RESET;
                 printMessage += "\nYou won the brawl and receive " + Colors.YELLOW + goldDiff + Colors.RESET + " gold.";
                 hunter.changeGold(goldDiff);
                 return;
@@ -168,8 +175,9 @@ public class Town {
             case "rope" -> "\nUnfortunately, your rope has broke.";
             case "machete" -> "\nUnfortunately, your machete has shattered into a million pieces.";
             case "horse" -> "\nSadly, your horse has decided to leave you.";
-            case "boots" -> "\nUnfortunately, your boots have worn out and are no longer fit for wearing";
-            case "boat" -> "\nSadly, your boat was stolen as you were sleeping";
+            case "boots" -> "\nUnfortunately, your boots have worn out on the way.";
+            case "boat" -> "\nSadly, your boat was stolen as you were sleeping.";
+            case "sword" -> "\nYour sword is gone. " + Colors.RED + "There's one in the next town." + Colors.RESET;
             default -> throw new UnsupportedOperationException("Not a possible item");
         };
     }
