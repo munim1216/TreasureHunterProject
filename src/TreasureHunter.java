@@ -30,7 +30,6 @@ public class TreasureHunter {
         String name = SCANNER.nextLine().toLowerCase();
 
         // set hunter instance variable
-
         System.out.print("(E)asy, (N)ormal, or (H)ard mode?: ");
         String difficulty = SCANNER.nextLine().toLowerCase();
         switch (difficulty) {
@@ -42,7 +41,11 @@ public class TreasureHunter {
                 hardMode = true;
                 hunter = new Hunter(name, 10);
             }
-            case "test" -> hunter = new Hunter("test");
+            case "s" -> {
+              hunter = new Hunter(name, 10);
+              hunter.startSamurai();
+            }
+            case "test" -> hunter = new Hunter("testman");
             default -> hunter = new Hunter(name, 10);
         }
 
@@ -96,7 +99,7 @@ public class TreasureHunter {
                 System.out.println(Colors.CYAN + "(M)ove on to a different town.");
                 System.out.println(Colors.GREEN + "(H)unt for treasure!");
                 System.out.println(Colors.RED + "(L)ook for trouble!");
-                System.out.println(Colors.GREEN + "(D)ig for gold!");
+                System.out.println(Colors.YELLOW + "(D)ig for gold!");
             }
 
             System.out.println(Colors.RESET + "Give up the hunt and e(X)it.");

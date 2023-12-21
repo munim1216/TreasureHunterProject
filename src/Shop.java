@@ -8,6 +8,7 @@ public class Shop {
     private static final int HORSE_COST = 12;
     private static final int BOAT_COST = 20;
     private static final int BOOTS_COST = 15;
+    private static final int SWORD_COST = 0;
 
     // static variables
     private static final Scanner SCANNER = new Scanner(System.in);
@@ -29,12 +30,15 @@ public class Shop {
             System.out.print("What're you lookin' to buy? ");
             String item = SCANNER.nextLine().toLowerCase();
             int cost = checkMarketPrice(item, true);
-            if (cost == 0) {
+            if (cost == -1) {
                 System.out.println("We ain't got none of those.");
-            } else {
+            } else if (customer.samurai()){
+                buyItem(item);
+                customer.buyItem(item, 0);
+            }
+            else {
                 System.out.print("It'll cost you " + Colors.YELLOW + cost + Colors.RESET + " gold. Buy it (y/n)? ");
                 String option = SCANNER.nextLine().toLowerCase();
-
                 if (option.equals("y")) {
                     buyItem(item);
                 }
@@ -44,8 +48,10 @@ public class Shop {
             System.out.println("You currently have the following items: " + customer.getInventory());
             String item = SCANNER.nextLine().toLowerCase();
             int cost = checkMarketPrice(item, false);
-            if (cost == 0) {
+            if (cost == -1) {
                 System.out.println("We don't want " + Colors.PURPLE + "none of those." + Colors.RESET);
+            } else if (customer.samurai()&&item.equals("sword")){
+                System.out.print(Colors.RED + "...No." + Colors.RESET);
             } else {
                 System.out.print("It'll get you " + Colors.YELLOW + cost + Colors.RESET + " gold. Sell it (y/n)? ");
                 String option = SCANNER.nextLine().toLowerCase();
@@ -64,21 +70,33 @@ public class Shop {
         str += "Horse: " + Colors.YELLOW + HORSE_COST + Colors.RESET + " gold\n";
         str += "Boots: " + Colors.YELLOW + BOOTS_COST + Colors.RESET + " gold\n";
         str += "Boat: " + Colors.YELLOW + BOAT_COST + Colors.RESET + " gold\n";
-
+        if (!customer.samurai()&&customer.samuraiMode()){
+            str += Colors.RED + "Sword." + Colors.RESET;
+        }
         return str;
     }
     public void buyItem(String item) {
         int costOfItem = checkMarketPrice(item, true);
-        if (customer.buyItem(item, costOfItem)) {
-            System.out.println("Ye' got yerself a " + item + ". Come again soon.");
+        if (customer.buyItem(item, costOfItem)&&!customer.samurai()) {
+            System.out.print("Ye' got yerself a " + item + ". Come again soon.");
+        } else if (costOfItem == 0&&item.equals("sword")){
+            System.out.print("The " + Colors.RED + "damn thing's" + Colors.RESET + " yours.");
+            customer.buyItem(item, costOfItem);
+        } else if (!customer.buyItem(item, costOfItem)&&customer.samurai()){
+            System.out.println("Hmm, you don't have enough-");
+            System.out.print("Ah, well, " + Colors.RED + "I guess it's on the house, stranger." + Colors.RESET);
+            customer.buyItem(item);
         } else {
-            System.out.println("Hmm, either you don't have enough " + Colors.YELLOW + "gold" + Colors.RESET + " or you've already got one of those!");
+            System.out.print("Hmm, either you don't have enough " + Colors.YELLOW + "gold" + Colors.RESET + " or you've already got one of those!");
         }
     }
     public void sellItem(String item) {
         int buyBackPrice = checkMarketPrice(item, false);
-        if (customer.sellItem(item, buyBackPrice)) {
+        if (customer.sellItem(item, buyBackPrice)&&!customer.samurai()) {
             System.out.println("Pleasure doin' business with you.");
+        } else if (customer.samurai()&&!item.equals("sword")) {
+            System.out.println(Colors.RED + "...this is highway robbery..." + Colors.RESET);
+            customer.sellItem(item, buyBackPrice);
         } else {
             System.out.println(Colors.RED + "Stop stringin' me along!" + Colors.RESET);
         }
@@ -99,7 +117,8 @@ public class Shop {
             case "horse" -> HORSE_COST;
             case "boat" -> BOAT_COST;
             case "boots" -> BOOTS_COST;
-            default -> 0;
+            case "sword" -> SWORD_COST;
+            default -> -1;
         };
     }
     public int getBuyBackCost(String item) {
