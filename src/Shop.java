@@ -35,8 +35,7 @@ public class Shop {
             } else if (customer.samurai()){
                 buyItem(item);
                 customer.buyItem(item, 0);
-            }
-            else {
+            } else {
                 System.out.print("It'll cost you " + Colors.YELLOW + cost + Colors.RESET + " gold. Buy it (y/n)? ");
                 String option = SCANNER.nextLine().toLowerCase();
                 if (option.equals("y")) {
@@ -79,10 +78,10 @@ public class Shop {
         int costOfItem = checkMarketPrice(item, true);
         if (customer.buyItem(item, costOfItem)&&!customer.samurai()) {
             System.out.print("Ye' got yerself a " + item + ". Come again soon.");
-        } else if (costOfItem == 0&&item.equals("sword")){
+        } else if (costOfItem == 0 && item.equals("sword")){
             System.out.print("The " + Colors.RED + "damn thing's" + Colors.RESET + " yours.");
             customer.buyItem(item, costOfItem);
-        } else if (!customer.buyItem(item, costOfItem)&&customer.samurai()){
+        } else if (customer.samurai()){
             System.out.println("Hmm, you don't have enough-");
             System.out.print("Ah, well, " + Colors.RED + "I guess it's on the house, stranger." + Colors.RESET);
             customer.buyItem(item);

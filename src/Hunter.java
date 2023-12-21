@@ -57,9 +57,10 @@ public class Hunter {
         return hasItemInKit("sword");
     }
     public boolean buyItem(String item, int costOfItem) {
-        if (costOfItem == -1 || (gold < costOfItem && !samurai)|| hasItemInKit(item)) {
+        if (costOfItem == -1 || gold < costOfItem || hasItemInKit(item)) {
             return false;
         }
+        gold -= costOfItem;
         addItem(item);
         return true;
     }
