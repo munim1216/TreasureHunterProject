@@ -30,7 +30,7 @@ public class Shop {
             System.out.print("What're you lookin' to buy? ");
             String item = SCANNER.nextLine().toLowerCase();
             int cost = checkMarketPrice(item, true);
-            if (cost == -1) {
+            if (cost == -1 || !customer.samuraiMode()) {
                 System.out.println("We ain't got none of those.");
             } else if (customer.samurai()){
                 buyItem(item);
