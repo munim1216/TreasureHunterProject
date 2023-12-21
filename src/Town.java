@@ -1,3 +1,9 @@
+/**
+ * The Town Class is where it all happens.
+ * The Town is designed to manage all the things a Hunter can do in town.
+ * This code has been adapted from Ivan Turner's original program -- thank you Mr. Turner!
+ */
+
 public class Town {
     // instance variables
     private Hunter hunter;
@@ -47,7 +53,7 @@ public class Town {
             printMessage += "\nWe're just a sleepy little town with mild mannered folk.";
         }
     }
-    public boolean leaveTown() {
+    public boolean leaveTown(boolean isEasyMode) {
         boolean canLeaveTown = terrain.canCrossTerrain(hunter);
         if (canLeaveTown||(hunter.samurai()&&terrain.getTerrainName().equals(Colors.CYAN + "Jungle" + Colors.RESET))) {
             String item = "";
@@ -58,8 +64,7 @@ public class Town {
                 item = terrain.getNeededItem();
                 printMessage = "You used your " + Colors.PURPLE + item + Colors.RESET + " to cross the " + terrain.getTerrainName() + ".";
             }
-
-            if (checkItemBreak()) {
+            if (checkItemBreak() && !isEasyMode) {
                 hunter.removeItemFromKit(item);
                 printMessage += breakMessage(item);
             }
